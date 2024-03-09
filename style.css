@@ -1,0 +1,114 @@
+:root {
+  --color1: #d7d2c5;
+  --color2: pink;
+  --color3: #393b4b;
+  --color4: rgb(18, 19, 19);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: url(./assets/img/pexels-astronaute\ gold.jpeg) center/cover;
+  height: 100vh;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--color1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* on parametre card pour mieux centrer  car en block  */
+
+.card {
+  background: rgba(0, 0, 0, 0.427);
+  width: calc(100% - 50%);
+  /* width=100% mais avec 50% (25 de chaque côté)de marge sur les côtés */
+
+  padding: 20px 20px 6px;
+  box-shadow: -9px 8px 11px rgba(128, 128, 128, 0.546);
+
+  border-radius: 5px;
+  backdrop-filter: blur(3px);
+}
+.card:before {
+  /* permet d'intégrer des éléments à html sans avoir besoin de créer une div */
+  content: "\2734";
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 2.5rem;
+}
+
+h1 {
+  margin-bottom: 10px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 20% 80%;
+}
+
+.polygon-container {
+  filter: drop-shadow(-1px 6px 3px var(--color1));
+  /* obligé de passer par le parent pour le border shadow d'un polygone */
+  place-self: center;
+  /* mettre le parent en grid */
+}
+
+.polygon {
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  /* ou avec cssgradient */
+  /* background:linear-gradient(135deg, var(--color2)0%,var(--color1)100%) ; */
+
+  background-image: linear-gradient(to top, #d299c2 0%, #fef9d7 100%);
+  /* fait avec webgradient */
+
+  /* ou background: rgb(2,0,36);
+background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,121,30,0.5004595588235294) 47%, rgba(0,157,255,0.4948573179271709) 100%); avec cssgradient*/
+
+  height: 100px;
+  width: 100px;
+}
+
+.polygon:after {
+  /* création d'un after dans l'élément polygon */
+  content: "Hodler";
+  position: absolute;
+  color: var(--color3);
+  /* background: var(--color1); */
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%) rotate(349deg);
+  /* obligé car il se centre par rapport à son coin superieur gauche */
+  width: 90px;
+  padding: 4px;
+  text-align: center;
+  
+}
+
+p{
+  line-height:22px; 
+  margin: 20px;
+
+  display:-webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+  /* laisser le choix à l'ut.de lire plus ou pas */
+  text-align:justify;
+
+}
+p::selection{
+  background: var(--color2) ;
+  color: var(--color3);
+}
+/* pour changer la couleur lorsqu'on sélectionne du texte */
+
+
+
+
+
