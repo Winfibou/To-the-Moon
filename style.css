@@ -274,6 +274,8 @@ button:hover + a,
 a:hover {
   opacity: 1;
   /* fait apparaitre le a et le maintient le temps de cliquer dessus */
+  visibility: visible;
+  /* rf plus bas  */
   transform: translateY(0px);
   /* permet de faire bouger vert.le a de bas en haut, + cf 2ème transform plus loin  */
 }
@@ -287,6 +289,8 @@ a {
   /* si on veut déposer au centre  */
 
   opacity: 0;
+  visibility: hidden;
+  /* pour éviter que lorsque l'util. passe sur le lien qui est caché mais présent tout de même , ce lien ne bug pas  */
   transform: translateY(20px);
   transition: 0.3s;
 }
@@ -302,7 +306,7 @@ img{
   z-index: -1;
   /* pour mettre 1 élément devant ou derrière  */
 
-  animation: spaceship 30s infinite linear;
+  animation: spaceship 40s infinite linear;
   /* ici on déclare l'animation, ensuite on la crée avec @keyframes identifier  */
 
 }
