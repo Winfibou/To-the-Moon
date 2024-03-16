@@ -19,6 +19,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
 /* on parametre card pour mieux centrer car en block  */
@@ -45,24 +46,34 @@ body {
 
 h1 {
   margin-bottom: 10px;
-  color:rgba(139, 44, 58, 0.795);
-  font-style:oblique;
-  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: rgba(139, 44, 58, 0.795);
+  font-style: oblique;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   position: relative;
 }
 
 /* ----pour faire une séparation paramétrable---sinon utiliser hr------------ */
 
-h1::after{
-  content:"";
+h1::after {
+  content: "";
   position: absolute;
   background: var(--color1);
   height: 1px;
   width: 100%;
   bottom: -10px;
-  left:50%;
-  transform:translateX(-50%)
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  animation: h1anim 10s ease-in-out forwards;
+  /*  permet de faire débuter l'anim à gauche.Par défaut par du centre */
+}
+/* forwards permet de garder l'animation "ouverte " */
 
+/* ------création animation------ */
+
+@keyframes h1anim {
+  100% {
+    transform: translateX(-50%) scaleX(1);
+  }
 }
 
 .grid-container {
@@ -82,7 +93,11 @@ h1::after{
   /* ou avec cssgradient */
   /* background:linear-gradient(135deg, var(--color2)0%,var(--color1)100%) ; */
 
-  background: linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(252,176,69,1) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(131, 58, 180, 1) 0%,
+    rgba(252, 176, 69, 1) 100%
+  );
   /* fait avec webgradient */
 
   /* ou background: rgb(2,0,36);
@@ -131,7 +146,10 @@ p::selection {
   display: flex;
   justify-content: space-around;
   margin: 20px 0 30px;
+  perspective: 60px;
 }
+
+/* perspective de 0 à 1000, plus le chiffre est petit, plus c'est accentué */
 
 /* ---------style des checkbox------ */
 
@@ -159,6 +177,39 @@ label {
   border-radius: 10px;
   transition: 0.2s;
   user-select: none;
+}
+
+/* connecter l'animation à un élément */
+label:first-of-type:hover {
+  animation: label1 0.8s infinite linear;
+}
+/* autre option:alternate  */
+@keyframes label1 {
+  50% {
+    transform: scale(1.3);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* autre méthode  et animation*/
+label:nth-child(4):hover {
+  animation: label2 3s infinite linear ;
+  /* linear =plus régulier */
+}
+/* NE PAS OUBLIER LA PERSPECTIVE SUR LE PARENT */
+@keyframes label2 {
+  33% {
+    transform: translateZ(30px);
+  }
+  66% {
+    transform: translateZ(-40px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+  /* lire: de 0 à 33, de 33 à 66, de 66 à 100 .En positif léléménet vient vers nous, en négatif il s'éloigne*/
 }
 
 .e-mail {
@@ -190,56 +241,127 @@ input[type="text"]:focus {
   /* on reprend les px de e-mail input pour éviter décalage */
   border-radius: 150px;
 }
-input[type="text"]::placeholder{
-  color:var(--color1);
+input[type="text"]::placeholder {
+  color: var(--color1);
 }
-  
-button{
+
+button {
   cursor: pointer;
-  background:linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(252,176,69,1) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(131, 58, 180, 1) 0%,
+    rgba(252, 176, 69, 1) 100%
+  );
   border-radius: 120px;
   border: none;
   font-size: 1.1rem;
   padding: 10px 20px;
   display: block;
-  margin:0 auto;
-/* le positionner à dte */
-transition: 0.1s;
-/* ici, on l'a en entrée et sortie */
+  margin: 0 auto;
+  /* le positionner à dte */
+  transition: 0.1s;
+  /* ici, on l'a en entrée et sortie */
 }
 button:hover {
   letter-spacing: 2px;
 }
 
 /* ici quand on clique, pas juste quand on passe */
-button:active{
-  transform:scale(1.2);
+button:active {
+  transform: scale(1.2);
 }
-button:hover + a, a:hover {
-  opacity:1;
+button:hover + a,
+a:hover {
+  opacity: 1;
   /* fait apparaitre le a et le maintient le temps de cliquer dessus */
-  transform:translateY(0px);
+  transform: translateY(0px);
   /* permet de faire bouger vert.le a de bas en haut, + cf 2ème transform plus loin  */
-
 }
 
-a{
+a {
   color: var(--color2);
   /* text-decoration: none; enlèverait le sous lignage */
   display: block;
   /* ou margin center auto */
   /* text-align:center; */
   /* si on veut déposer au centre  */
-  
-   opacity:0;
-   transform: translateY(20px);
-   transition: 0.3s;
-}
-  
 
-a:visited{
-  color:var(--color1)
+  opacity: 0;
+  transform: translateY(20px);
+  transition: 0.3s;
 }
 
+a:visited {
+  color: var(--color1);
+}
 
-  
+img{
+  height: 60PX;
+  position: absolute;
+  filter: drop-shadow(0px 6px 3px rgba(255, 255, 6, 0.6));
+  z-index: -1;
+  /* pour mettre 1 élément devant ou derrière  */
+
+  animation: spaceship 30s infinite linear;
+  /* ici on déclare l'animation, ensuite on la crée avec @keyframes identifier  */
+
+}
+
+@keyframes spaceship{
+  0%{
+    top:2%;
+    left:2%;
+    transform:rotate(10deg);
+    /* si on veut réorienter par la suite */
+  }
+  10%{
+    top:2%;
+    left:30%;
+    transform:rotate(60deg);
+  }
+  20%{
+    top:9%;
+    left:60%;
+    transform:rotate(10deg);
+  }
+  30%{
+    top:0%;
+    left:80%;
+    transform:rotate(80deg);
+  }
+  40%{
+    top:20%;
+    left:120%;
+    transform:rotate(110deg);
+  }
+  50%{
+    top:50%;
+    left:80%;
+    transform:rotate(323deg);
+  }
+  60%{
+    top:90%;
+    left:90%;
+    transform:rotate(256deg);
+  }
+  70%{
+    top:110%;
+    left:50%;
+    transform:rotate(237deg);
+  }
+  80%{
+    top:85%;
+    left:30%;
+    transform:rotate(323deg);
+  }
+  90%{
+    top:50%;
+    left:15%;
+    transform:rotate(350deg);
+  }
+  100%{
+    top:2%;
+    left:2%;
+    transform:rotate(90deg);
+  }
+}
